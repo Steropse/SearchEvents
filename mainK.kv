@@ -1,0 +1,580 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+#: import CardTransition kivy.uix.screenmanager.CardTransition
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import Gradient kivy_gradient.Gradient
+
+MainLayout:
+
+<MainLayout>:
+    AccountL:
+    Account:
+    Search:
+    Append:
+    Events:
+    Event:
+
+
+<Account>:
+    nameL: nameL
+    memL: memL
+    orgL: orgL
+    name: "Account"
+    orientation: "vertical"
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            texture:
+                Gradient.vertical(get_color_from_hex("#1D2525"), get_color_from_hex("#3E986F"))
+
+    BoxLayout:
+        size_hint: 1, 0.1
+        BoxLayout:
+            BoxLayout:
+                size_hint: 2, 1
+                canvas:
+                    Color:
+                        rgb: (0, 0.5, 0.4)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Label:
+                    id: nameL
+                    text: "Имя"
+
+            Button:
+                text: "Вход"
+                background_color: (0.8, 0.8, 0.8)
+                on_release:
+                    root.transition = NoTransition()
+                    app.root.current = "AccountL"
+
+    Label:
+        size_hint: 1, 0.5
+
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: 0, 0, 0, .5
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: "vertical"
+        Label:
+            text: "Мероприятия"
+        BoxLayout:
+            Label:
+                text: "Участник"
+            Label:
+                id: memL
+                text: "0"
+                size_hint: 0.5, 1
+            AnchorLayout:
+                anchor_y: "center"
+                anchor_x: "center"
+                Button:
+                    size_hint: 0.5, 0.5
+                    text: "..."
+                    background_color: (0.8, 0.8, 0.8)
+                    on_release:
+                        root.eventsU()
+                        app.root.current = "Events"
+        BoxLayout:
+            Label:
+                text: "Организатор"
+            Label:
+                id: orgL
+                text: "0"
+                size_hint: 0.5, 1
+            AnchorLayout:
+                anchor_y: "center"
+                anchor_x: "center"
+                Button:
+                    size_hint: 0.5, 0.5
+                    text: "..."
+                    background_color: (0.8, 0.8, 0.8)
+                    on_release:
+                        root.eventsC()
+                        app.root.current = "Events"
+        BoxLayout:
+            size_hint: 0.2, 0.5
+            Button:
+                text: "R"
+                background_color: (0.8, 0.8, 0.8)
+                on_release:
+                    root.Reset()
+
+
+
+    BoxLayout:
+        Button:
+            text: "Account"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+        Button:
+            text: "Search"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+            on_release:
+                root.transition = NoTransition()
+                app.root.current = "Search"
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: "Append"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+            on_release:
+                root.manager.transition = NoTransition()
+                app.root.current = "Append"
+                root.manager.transition.direction = "left"
+
+<AccountL>:
+    name: "AccountL"
+
+    login: login
+    nameAc: nameAc
+    passAc: passAc
+    orientation: "vertical"
+    cols: 1
+
+    canvas:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            texture:
+                Gradient.vertical(get_color_from_hex("#1D2525"), get_color_from_hex("#3E986F"))
+
+
+    BoxLayout:
+        Label:
+            color: (0, 0 ,0)
+            text: "Вход в Аккаунт"
+
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: 1, 1.5
+        height: "50dp"
+        canvas:
+            Color:
+                rgba: 0, 0, 0, .5
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            size_hint: 1, 0.5
+        Label:
+            color: (1, 1, 1)
+            text: "Введите имя:"
+        TextInput:
+            id: nameAc
+            font_hint: 1
+            multiline: False
+        Label:
+            color: (1, 1, 1)
+            text: "Введите пароль:"
+        TextInput:
+            id: passAc
+            multiline: False
+        BoxLayout:
+            Button:
+                background_color: (0.8, 0.8, 0.8)
+                color: (1, 1, 1)
+                text: "Вход"
+                on_press:
+                    root.Log()
+            Button:
+                background_color: (0.8, 0.8, 0.8)
+                color: (1, 1, 1)
+                text: "Регистрация"
+                on_press:
+                    root.Reg()
+        Label:
+            id: login
+            text: "Вход не выполнен"
+
+    BoxLayout:
+        size_hint: 1, 0.8
+        orientation: "vertical"
+        Label:
+        BoxLayout:
+            Label:
+                size_hint: 0.5, 1
+            Button:
+                background_color: (0.5,  1.5, 0.5)
+                color: (0, 0, 0)
+                text: "Продолжить"
+                on_release:
+                    root.transition = NoTransition()
+                    app.root.current = "Account"
+            Label:
+                size_hint: 0.5, 1
+        Label:
+
+
+    BoxLayout:
+        Button:
+            text: "Account"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+        Button:
+            text: "Search"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+            on_release:
+                root.transition = NoTransition()
+                app.root.current = "Search"
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: "Append"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+            on_release:
+                root.manager.transition = NoTransition()
+                app.root.current = "Append"
+                root.manager.transition.direction = "left"
+
+<Search>:
+    name: "Search"
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            texture:
+                Gradient.vertical(get_color_from_hex("#1D2525"), get_color_from_hex("#3E986F"))
+    cols: 1
+
+    BoxLayout:
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "bottom"
+            Button:
+                size_hint: None, None
+                size: "80dp", "30dp"
+                text: "Всё"
+                on_release:
+                    root.searchAl()
+                    root.manager.transition = NoTransition()
+				    app.root.current = "Events"
+
+    BoxLayout:
+        Button:
+            text: "Account"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Account"
+				root.manager.transition.direction = "right"
+        Button:
+            text: "Search"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+        Button:
+            text: "Append"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Append"
+				root.manager.transition.direction = "left"
+
+<Events>:
+    name1: name1
+    name2: name2
+    name3: name3
+    name4: name4
+    name5: name5
+
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            texture:
+                Gradient.vertical(get_color_from_hex("#1D2525"), get_color_from_hex("#3E986F"))
+    cols: 1
+    name: "Events"
+
+    Label:
+        text: "Мероприятия:"
+
+    AnchorLayout:
+        anchor_y: "center"
+        BoxLayout:
+            size_hint: 1, 0.5
+            Label:
+                id: name1
+                text: "name"
+            Button:
+                text: "Подообнее"
+                on_release:
+                    root.manager.transition = NoTransition()
+                    app.root.current = "Event"
+                    root.nom1()
+    AnchorLayout:
+        anchor_y: "center"
+        BoxLayout:
+            size_hint: 1, 0.5
+            Label:
+                id: name2
+                text: "name"
+            Button:
+                text: "Подообнее"
+                on_release:
+                    root.manager.transition = NoTransition()
+                    app.root.current = "Event"
+                    root.nom2()
+
+    AnchorLayout:
+        anchor_y: "center"
+        BoxLayout:
+            size_hint: 1, 0.5
+            Label:
+                id: name3
+                text: "name"
+            Button:
+                text: "Подообнее"
+                on_release:
+                    root.manager.transition = NoTransition()
+                    app.root.current = "Event"
+                    root.nom3()
+    AnchorLayout:
+        anchor_y: "center"
+        BoxLayout:
+            size_hint: 1, 0.5
+            Label:
+                id: name4
+                text: "name"
+            Button:
+                text: "Подообнее"
+                on_release:
+                    root.manager.transition = NoTransition()
+                    app.root.current = "Event"
+                    root.nom4()
+    AnchorLayout:
+        anchor_y: "center"
+        BoxLayout:
+            size_hint: 1, 0.5
+            Label:
+                id: name5
+                text: "name"
+            Button:
+                text: "Подообнее"
+                on_release:
+                    root.manager.transition = NoTransition()
+                    app.root.current = "Event"
+                    root.nom5()
+
+    BoxLayout:
+        Button:
+            size_hint: 0.5, 0.5
+            text: "<"
+            on_release: root.back()
+        Button:
+            size_hint: 0.5, 0.5
+            text: "0"
+            on_release: root.Page0()
+        Button:
+            size_hint: 0.5, 0.5
+            text: ">"
+            on_release: root.next()
+
+    BoxLayout:
+        Button:
+            text: "Account"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Account"
+        Button:
+            text: "Search"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Search"
+        Button:
+            text: "Append"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Append"
+
+
+<Event>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            texture:
+                Gradient.vertical(get_color_from_hex("#1D2525"), get_color_from_hex("#3E986F"))
+    cols: 1
+    name: "Event"
+
+    nameE: name
+    desc: desc
+    con: con
+    link: link
+    town: town
+    typeE: typeE
+
+    BoxLayout:
+        Label:
+            text: "Название"
+        Button:
+            size_hint: 0.3, 1
+            text: "R"
+            on_release:
+                root.Reset()
+    Label:
+        id: name
+    Label:
+        text: "Описание"
+    Label:
+        id: desc
+    Label:
+        text: "Связь"
+    Label:
+        id: con
+    Label:
+        text: "Местоположение"
+    Label:
+        id: link
+    Label:
+        text: "Город"
+    Label:
+        id: town
+    Label:
+        text: "Вид мероприятия"
+    Label:
+        id: typeE
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "top"
+        Button:
+            size_hint: 0.75, 0.5
+            text: "Учавствовать"
+            on_release:
+				root.manager.transition = NoTransition()
+				root.regEv()
+
+    BoxLayout:
+        Button:
+            text: "Account"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Account"
+        Button:
+            text: "Search"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Search"
+        Button:
+            text: "Append"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Append"
+
+
+<Append>:
+    log: log
+    name: "Append"
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            texture:
+                Gradient.vertical(get_color_from_hex("#1D2525"), get_color_from_hex("#3E986F"))
+    cols: 1
+
+    nameE: name
+    desc: desc
+    con: con
+    link: link
+    town: town
+    typeE: typeE
+
+    BoxLayout:
+        Label:
+            text: "Название"
+    TextInput:
+        id: name
+    Label:
+        text: "Описание"
+    TextInput:
+        id: desc
+    Label:
+        text: "Связь"
+    TextInput:
+        id: con
+    Label:
+        text: "Местоположение"
+    TextInput:
+        id: link
+    Label:
+        text: "Город"
+    TextInput:
+        id: town
+    Label:
+        text: "Вид мероприятия"
+    TextInput:
+        id: typeE
+
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "top"
+        Button:
+            size_hint: 0.5, 0.5
+            text: "создать"
+            on_release:
+				root.create()
+
+
+    BoxLayout:
+        Button:
+            text: "Account"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Account"
+        Button:
+            text: "Search"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
+			on_release:
+				root.manager.transition = NoTransition()
+				app.root.current = "Search"
+        Button:
+            text: "Append"
+            size_hint: 1, None
+            height: "50dp"
+            background_color: (0.9, 0.9, 0.9)
